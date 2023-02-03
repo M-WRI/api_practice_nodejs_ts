@@ -12,7 +12,10 @@ export const signup = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
     const user = new User({ username, email, password: hashedPassword });
     await user.save();
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET!);
+    const token = jwt.sign(
+      { userId: user._id, username: user.username },
+      JWT_SECRET!
+    );
     return res.status(201).json({ message: "User created", token });
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
