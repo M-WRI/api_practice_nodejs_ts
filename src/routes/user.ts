@@ -7,5 +7,6 @@ const router = express.Router();
 router.post("/signup", validation.signup, userController.signup);
 router.post("/signin", validation.signin, userController.signin);
 router.post("/signout", userController.signout);
+router.delete("/delete/user/:id", userController.deleteUser);
 
 export default router;

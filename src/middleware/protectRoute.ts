@@ -1,10 +1,10 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import { CustomRequest } from "../@types/routes";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
-export const authenticationMiddleware = (
+export const protectRoute = (
   req: Request,
   res: Response,
   next: NextFunction
