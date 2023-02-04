@@ -19,18 +19,24 @@ export const createProfile = async (req: any, res: Response) => {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
     const userId = decoded.userId;
 
-    const profile = new Profile({
-      userId: userId,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      birthdate: req.body.birthdate,
-      // address: req.body.address,
-    }) as IProfile;
+    const hasProfile = await Profile.findOne({ userId: userId });
 
-    const savedProfile = await profile.save();
-    res
-      .status(201)
-      .json({ message: "Saving profile data successful", savedProfile });
+    if (!hasProfile!._id) {
+      const profile = new Profile({
+        userId: userId,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        birthdate: req.body.birthdate,
+        // address: req.body.address,
+      }) as IProfile;
+
+      const savedProfile = await profile.save();
+      res
+        .status(201)
+        .json({ message: "Saving profile data successful", savedProfile });
+    } else {
+      res.status(400).json({ error: "Profiledata already exists" });
+    }
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error - Create profile" });
   }

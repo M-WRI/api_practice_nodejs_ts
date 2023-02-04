@@ -41,6 +41,7 @@ export const signout = (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   const id = req.params.id;
+
   // Find the user in your database using the id
   User.findByIdAndDelete(id, (err: Error, user: IUser) => {
     if (err) return res.status(500).json({ error: "Error deleting user" });

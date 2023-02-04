@@ -32,5 +32,7 @@ export const protectRoute = (
       }
       return res.status(500).json({ error: "Server error" });
     }
+  } else {
+    return res.status(401).json({ error: "Token is missing" });
   }
 };
