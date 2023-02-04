@@ -1,4 +1,5 @@
-import mongoose, { Document, Schema, model } from "mongoose";
+import { Document, Schema, model } from "mongoose";
+import { IProfile } from "./Profile";
 
 enum UserRole {
   Admin = "admin",
@@ -11,6 +12,7 @@ export interface IUser extends Document {
   username: string;
   password: string;
   role: UserRole;
+  profile: IProfile;
 }
 
 const userSchema = new Schema(

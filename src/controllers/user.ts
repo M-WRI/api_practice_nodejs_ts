@@ -19,7 +19,7 @@ export const signup = async (req: Request, res: Response) => {
     const token = jwt.sign({ userId: user._id, role: user.role }, JWT_SECRET!);
     return res.status(201).json({ message: "User created", token });
   } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error - Signup" });
   }
 };
 
@@ -30,7 +30,7 @@ export const signin = async (req: Request, res: Response) => {
     const token = jwt.sign({ userId: user!._id }, JWT_SECRET);
     return res.json({ message: "Signin successful", token });
   } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error - Signin" });
   }
 };
 
